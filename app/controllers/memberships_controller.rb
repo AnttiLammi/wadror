@@ -16,18 +16,18 @@ class MembershipsController < ApplicationController
   def new
     @membership = Membership.new
     @user = current_user
-   
     @clubs = BeerClub.all
     @beerclubs = []
     @clubs.each do |beerclub|
-      if not beerclub.users.any? {|user| user.username == current_user.username}
+      if beerclub.users.none? { |user| user.username == current_user.username }
         @beerclubs.push(beerclub)
       end
     end
-    if @beerclubs.empty? 
-      # jottei tule ongelmia tyhjän listan kanssa
-      redirect_to user_path(current_user)  
-    end
+
+    return if !@beerclubs.empty?
+
+    # jottei tule ongelmia tyhjän listan kanssa
+    redirect_to user_path(current_user)
   end
 
   # GET /memberships/1/edit
@@ -62,7 +62,6 @@ class MembershipsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
-
     end
   end
 
@@ -77,15 +76,14 @@ class MembershipsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_membership
-      @membership = Membership.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def membership_params
+  # Use callbacks to share common setup or constraints between actions.
+  def set_membership
+    @membership = Membership.find(params[:id])
+  end
 
-     
-      params.require(:membership).permit(:beer_club_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def membership_params
+    params.require(:membership).permit(:beer_club_id)
+  end
 end

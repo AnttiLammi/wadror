@@ -7,5 +7,6 @@ class User < ApplicationRecord
   has_many :beers, through: :ratings
   has_secure_password
 
-  validates :password, length: {minimum: 4}, format: { with: /\A.*[0-9]+.*\z/ }, format: {with: /\A.*[A-Z]+.*\z/}
+  validates :password, length: { minimum: 4 }, format: { with: /\A.*[0-9]+.*\z/ }
+  validates :password, format: { with: /\A.*[A-Z]+.*\z/ }
 end
