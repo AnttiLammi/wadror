@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+- 2.5.1
+script:
+- bundle exec rails db:migrate
+- bundle exec rspec -fd spec
+deploy:
+  api_key:
+    secure: S6jKuMphDD3HDeYwOf3qrk8XF3P8G3w8kpIm7da4qgKEtgVZnXa3NKBZ48CAK0T0rAVnOuUqRJz0/tiYUY6iTaITqeNCsRfpav2G1Px+3G3P2kdM1XKtnB42DX90F2PHwf2g6zKFZT8/urNVF7eKq0P8vMt/p0hCtVOo/eTlpPbZv/oqMK/AVQ0WmHVjuQ3gxoZVXVMxwu5RT+cY0hItuMvsIQAVux129VSZ4WwOyFEB5y625lUhe2h0s4qhodGGs0WPXry230hLwC0Q3SveNaRxbi8jqeBnCFLDJTL6HGEA5K7WHPhDUltWhUZEoCy/obj10ZT+SVL/TnuwJlFGwIU4FK/UBnQtdOck357cHQDtZzDaiSRAR6dmC5k0VVSHummXK2KSImjAKD6EVwqpjHVurYMBztsXn0Gg+VfxE+SdWs1MuVaUKoLIHeyxkBD+Jj+pOnuCqyc0rp/VdHnjevmetpACUZm34XRWZOcRcJprAKwfLNd2Wp2VlR8CSekPWco5cSswaJw/oe1vtcwjJ1VGhQm/NpoVTN7IKE36Qdy581y+xTaFWVOQaw24wqR94YKOsZrZmeGm3vGSHaq4dhrJ3ymEsGr1CAwlZ6ZTxAQcByEQOp6QKorBR5sDAsJXIHXABWrYH0yookuXf6gxru1t/Gnet6J5dOOZZ4t/JcU=

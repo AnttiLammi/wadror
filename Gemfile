@@ -7,7 +7,16 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.1'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-	gem 'sqlite3'
+  gem 'sqlite3'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails'
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  gem 'simplecov', require: false
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
+  gem 'factory_bot_rails'
+  gem 'launchy'
 end
 gem 'bcrypt', '~> 3.1.7'
 group :production do

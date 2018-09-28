@@ -9,7 +9,9 @@
   <% if @user.ratings.empty? %>
     Has made <%= pluralize(@user.ratings.count, 'rating') %>
   <% else %>
-    Has made <%= pluralize(@user.ratings.count, 'rating')%>, average rating <%= @user.average_rating%>
+    Has made <%= pluralize(@user.ratings.count, 'rating')%>, average rating <%= @user.average_rating%><br/>
+    Favorite brewery: <%=link_to @user.favorite_brewery.name, @user.favorite_brewery %><br/>
+    Favorite style: <%= @user.favorite_style %>
   <% end %>
 </p>
 
