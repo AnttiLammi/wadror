@@ -30,5 +30,8 @@ Number of beers
   Has <%= pluralize(@brewery.ratings.count, 'rating')%>, average <%= @brewery.average_rating%>. 
   <%end%>
 </p>
-<%= link_to 'Edit', edit_brewery_path(@brewery) %> |
+<% if current_user %>
+  <%= link_to 'Delete', @brewery, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
+<% end %>
 <%= link_to 'Back', breweries_path %>
