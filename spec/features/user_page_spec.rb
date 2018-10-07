@@ -39,7 +39,7 @@ describe "User page" do
     let!(:beer1) {FactoryBot.create :beer, name: "iso 3", brewery: brew1}
     let!(:rate1) {FactoryBot.create :rating, score:25, beer: beer1, user: @user}   
     let!(:rate2) {FactoryBot.create :rating, score:20, beer: beer1, user: @user}
-
+    let!(:style) {FactoryBot.create :style}
     it "shows users own ratings" do
       user2 = FactoryBot.create :user, username: 'PekanKaveri'
       FactoryBot.create :rating, score: 15, beer: beer1, user: user2
@@ -68,8 +68,9 @@ describe "User page" do
     end
 
     it "when exists has favorite style" do
+      
         visit user_path(@user)
-        expect(page).to have_content "Favorite style: #{@user.favorite_style}"
+        expect(page).to have_content "Favorite style: anonstyle"
     end
   end
 end

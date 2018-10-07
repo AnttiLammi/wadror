@@ -29,7 +29,8 @@ RSpec.describe User, type: :model do
   describe "with a proper password" do
     let(:user) { FactoryBot.create(:user) }
     let(:test_brewery) { Brewery.new name: "test", year: 2000 }
-    let(:test_beer) { Beer.create name: "testbeer", style: "teststyle", brewery: test_brewery }
+    let(:test_style) {FactoryBot.create(:style, name:teststyle)}
+    let(:test_beer) { Beer.create name: "testbeer", style_id: :test_style.id, brewery: test_brewery }
 
     it "is saved" do
       expect(user).to be_valid
@@ -89,14 +90,16 @@ RSpec.describe User, type: :model do
     end
 
     it "is the one with highest rating if several rated" do 
-      average = FactoryBot.create(:beer, style: "Weizen")
+      averagestyle = FactoryBot.create(:style, name:"Weizen")
+      average = FactoryBot.create(:beer, style_id:averagestyle.id)
       FactoryBot.create(:rating, score:30, beer:average, user:user)
 
       create_beer_with_rating({ user: user }, 10 )
       create_beer_with_rating({ user: user}, 7 )
       create_beer_with_rating({ user: user }, 25 )
 
-      best = FactoryBot.create(:beer, style: "IPA")
+      beststyle = FactoryBot.create(:style, name:"IPA")
+      best = FactoryBot.create(:beer, style_id: beststyle.id)
       FactoryBot.create(:rating, score:40, beer: best, user:user)
 
       expect(user.favorite_style).to eq(best.style)

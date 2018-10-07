@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_tag places_path do %>
+  city <%= text_field_tag :city, params[:city] %>
+  <%= submit_tag "Search" %>
+  
+<% end %>
+
+<% if @places %>
+<p><strong> the current beer weather in <%= @places.first.city%></strong> <br/>
+
+<%= "Temperature: #{ApixuApi.temperature_in(@places.first.city)} Celsius."%> <br/>
+
+<%= "Condition: #{ApixuApi.condition_in(@places.first.city)}" %> <br/>
+
+<%= "Wind: #{ApixuApi.wind_in(@places.first.city).first} m/sec, direction #{ApixuApi.wind_in(@places.first.city).second}" %>
+
+</p>
+  <table>
+  <thead>
+   <th>id</th>
+   <th>name</th>
+   <th>status</th>
+   <th>street</th>
+   <th>city</th> 
+   <th>zip</th> 
+   <th>country</th> 
+   <th>overall</th>               
+ </thead>
+ <% @places.each do |place| %>
+   <tr>
+     <td><%= place.id %></td>
+     <td><%= link_to place.name, place_path(place.id) %></td>
+     <td><%= place.status %></td>
+     <td><%= place.street %></td>
+     <td><%= place.city %></td> 
+     <td><%= place.zip %></td> 
+     <td><%= place.country %></td> 
+     <td><%= place.overall %></td>        
+   </tr>
+ <% end %>
+  </table>
+<% end %>

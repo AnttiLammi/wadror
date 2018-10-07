@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :style do
+    name { "anonstyle "}
+    description { "yumyum"}
+  end
+  
   factory :user do
     username { "Pekka" }
     password { "Foobar1" }
@@ -10,11 +15,15 @@ FactoryBot.define do
     year { 1900 }
   end
 
+  
+
   factory :beer do
     name { "anonymous" }
-    style { "Lager" }
+    style
     brewery
   end
+
+ 
 
   factory :rating do
     beer

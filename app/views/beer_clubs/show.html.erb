@@ -21,6 +21,23 @@
   <% end %>
 </ul>
 <% if current_user %>
+<% if not current_user.membership.any? {|u| u.beer_club_id == @beer_club.id}%>
+  <%= form_for(@membership) do |f| %>
+    <%= f.hidden_field :beer_club_id %>
+    <%= f.submit value: "Join this club!" %>
+    <br/>
+    <br/>
+    <% end %>
+<% else %>
+  <%# Lomakkeen syntaksin kanssa oli vaikeuksia, joten tein tähän vaihtoehtoisen ratkaisun. %>
+
+
+  <%= link_to "Leave this club", membership_path(Membership.find_by(user_id:current_user.id, beer_club_id:@beer_club.id).id), method: "delete"  %>
+
+  <br/>
+  <br/>
+
+<% end %>
   <%= link_to 'Delete', @beer_club, method: :delete, data: { confirm: 'Are you sure?' } %>|
   <%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
 <% end %>
