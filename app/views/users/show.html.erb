@@ -2,11 +2,11 @@
 
 <p>
   <h3>  <%= @user.username %> </h3>
-  <% if current_user.admin? && !@user.active %>
+  <% if !current_user.nil?&&current_user.admin? && !@user.active %>
     <span class="badge badge-info">account closed</span>
   <% end %>
 </p>
-<% if current_user.admin?%>
+<% if !current_user.nil?&&current_user.admin?%>
   <% if @user.active == true %>
     <%= link_to "close account", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-danger" %>
   <% else %>
