@@ -2,7 +2,7 @@
 
 <%= form_tag places_path do %>
   city <%= text_field_tag :city, params[:city] %>
-  <%= submit_tag "Search" %>
+  <%= submit_tag "Search" , class:'btn btn-outline-primary' %>
   
 <% end %>
 
@@ -16,7 +16,7 @@
 <%= "Wind: #{ApixuApi.wind_in(@places.first.city).first} m/sec, direction #{ApixuApi.wind_in(@places.first.city).second}" %>
 
 </p>
-  <table>
+  <table class="table table-hover">
   <thead>
    <th>id</th>
    <th>name</th>
@@ -39,5 +39,5 @@
      <td><%= place.overall %></td>        
    </tr>
  <% end %>
-  </table>
+ </table>
 <% end %>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :ensure_that_admin, only: [:toggle_activity]
   # GET /users
   # GET /users.json
   def index
@@ -22,6 +22,15 @@ class UsersController < ApplicationController
     return if @user == current_user
 
     redirect_to @user
+  end
+
+  def toggle_activity
+    user = User.find(params[:id])
+    user.update_attribute :active, !user.active
+
+    new_status = user.active? ? "active" : "inactive"
+
+    redirect_to user, notice: "user activity status changed to #{new_status}"
   end
 
   # POST /users

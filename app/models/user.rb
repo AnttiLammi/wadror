@@ -10,6 +10,12 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, format: { with: /\A.*[0-9]+.*\z/ }
   validates :password, format: { with: /\A.*[A-Z]+.*\z/ }
 
+  def self.top(num)
+    ordered = User.all.sort_by{ |u| -(u.ratings.count || 0) }
+    top = ordered.take(num)
+    top
+  end
+
   def favorite_beer
     return nil if ratings.empty?
 

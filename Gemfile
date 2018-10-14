@@ -26,6 +26,9 @@ group :production do
 	gem 'pg'
 	gem 'rails_12factor'
 end
+gem 'bootstrap', '~> 4.1.3'
+gem 'jquery-rails'
+
 gem 'httparty'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'

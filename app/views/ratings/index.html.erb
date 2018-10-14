@@ -1,11 +1,95 @@
-<h2>List of ratings </h2>
-Has <%= pluralize(@ratings.count, 'rating')%> 
+<h3> Ratings</h3>
+<div class="row">
+<div class="col-4 col-sm-4">
+<% @top_breweries = Brewery.top 3%>
+<table class="table">
+  <thead>
+  <tr>
+    <th> Best Breweries</th>
+    <th> average </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @top_breweries.each do |b| %>
+    <tr>
+      <td><%= link_to b.name, brewery_path(b)%></td>
+      <td><%= round(b.average_rating) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="col-4 col-sm-4">
+<table class="table">
+  <thead>
+  <tr>
+    <th> Best Beers </th>
+    <th> average </th>
+  </tr>
+  </thead>
+  <% @top_beers = Beer.top 3%>
+
+  <tbody>
+  <% @top_beers.each do |b| %>
+    <tr>
+      <td> <%= link_to b.name, beer_path(b)%></td>
+      <td> <%= round(b.average_rating) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="col-4 col-sm-4">
+<table class="table">
+  <thead>
+  <tr>
+    <th> Best Styles </th>
+    <th> average </th>
+  </tr>
+  </thead>
+  <% @top_styles = Style.top 3%>
+
+  <tbody>
+  <% @top_styles.each do |s| %>
+    <tr>
+      <td> <%= link_to s.name, style_path(s)%></td>
+      <td> <%= round(s.average_rating) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+
+</div>
+<table class="table">
+  <thead>
+  <tr>
+    <th> Most Active Users</th>
+    <th> ratings </th>
+  </tr>
+  </thead>
+  <% @top_users = User.top 3%>
+
+  <tbody>
+  <% @top_users.each do |u| %>
+    <tr>
+      <td> <%= link_to u.username, user_path(u)%></td>
+      <td> <%= u.ratings.count%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+ 
+<h5> recent ratings </h5>
 <ul>
-  <% @ratings.each do |rating| %>
-    <li> <%= rating %> <%=link_to  rating.user.username, user_path(rating.user)%> </li>
-    
+  <% @recent_ratings = Rating.recent %>
+  <% @recent_ratings.each do |r| %>
+    <li><%= link_to r.beer.name, beer_path(r.beer) %>: <%=r.score %>, rated by:  <%= link_to r.user.username, user_path(r.user) %></li>
   <% end %>
 </ul>
-
 <br>
-<%= link_to 'New Rating', new_rating_path%>
+<%= link_to 'New Rating', new_rating_path, class:'btn btn-outline-primary' %>
