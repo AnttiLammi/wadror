@@ -85,4 +85,3 @@ class BeersController < ApplicationController
     params.require(:beer).permit(:name, :style_id, :brewery_id)
   end
 end
- 

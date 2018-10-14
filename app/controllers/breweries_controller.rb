@@ -31,8 +31,9 @@ class BreweriesController < ApplicationController
 
     new_status = brewery.active? ? "active" : "retired"
 
-    redirect_to brewery, notice:"brewery activity status changed to #{new_status}"
+    redirect_to brewery, notice: "brewery activity status changed to #{new_status}"
   end
+
   # POST /breweries
   # POST /breweries.json
   def create

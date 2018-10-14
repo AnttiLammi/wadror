@@ -15,8 +15,6 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @user.admin = false
-    @user.active = true
   end
 
   # GET /users/1/edit
@@ -39,7 +37,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    @user.admin = false
+    @user.active = true
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
