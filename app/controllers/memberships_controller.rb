@@ -12,6 +12,13 @@ class MembershipsController < ApplicationController
   def show
   end
 
+  def toggle_confirmed
+    membership = Membership.find(params[:id])
+    membership.update_attribute :confirmed, !membership.confirmed
+
+    redirect_to beer_club_path(membership.beer_club_id), notice: "Membership approved for #{membership.user.username}"
+  end
+
   # GET /memberships/new
   def new
     @membership = Membership.new

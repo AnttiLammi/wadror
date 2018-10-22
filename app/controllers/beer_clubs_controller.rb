@@ -7,11 +7,20 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs.json
   def index
     @beer_clubs = BeerClub.all
+    order = params[:order] || 'name'
+
+    @beer_clubs = case order
+                  when 'name' then @beer_clubs.sort_by(&:name)
+                  when 'founded' then @beer_clubs.sort_by(&:founded)
+                  when 'city' then @beer_clubs.sort_by(&:city)
+                  end
   end
 
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    @confirmed_members = @beer_club.membership.select{ |m| m.confirmed == true }
+    @applicants = @beer_club.membership.select{ |m| m.confirmed == false }
     @membership = Membership.new
     @membership.beer_club = @beer_club
   end
@@ -29,9 +38,13 @@ class BeerClubsController < ApplicationController
   # POST /beer_clubs.json
   def create
     @beer_club = BeerClub.new(beer_club_params)
-
     respond_to do |format|
       if @beer_club.save
+        founder = Membership.new
+        founder.beer_club_id = @beer_club.id
+        founder.user_id = current_user.id
+        founder.confirmed = true
+        founder.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else

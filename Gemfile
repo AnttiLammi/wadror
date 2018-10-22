@@ -12,10 +12,11 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  gem 'sucker_punch', '~> 2.0'
   gem 'simplecov', require: false
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
-
+  gem 'rack-mini-profiler'
   gem 'launchy'
 end
 group :test do
